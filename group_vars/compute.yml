@@ -1,0 +1,18 @@
+# Virtual switches that should be created
+ovs_switches:
+  - br-public
+
+# This user is added to the libvirt(d) group
+libvirt_mgmt_user: leonard
+
+# Virtual machines that should exist
+# @param[memory] Memory to assign. Unit: GiB
+# @param[cpus] Amount of CPU cores to assign. Max: Number of host CPUs
+# @param[switches] List of switches created via `ovs_switches`
+boxes:
+  - name: cexy.techel.net
+    memory: 2
+    cpus: 4
+    switches:
+      - br-public
+

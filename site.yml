@@ -1,0 +1,10 @@
+- name: Install YoloVPS compute engine
+  hosts: compute
+  become: yes
+
+  roles:
+    - common
+    - openvswitch
+    - libvirt
+    - boxes
+

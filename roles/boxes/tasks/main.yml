@@ -1,0 +1,8 @@
+- name: Define all virtual machines
+  virt: name={{item.name}} xml="{{ lookup('template', 'domain.xml') }}" command=define
+  with_items: "{{boxes}}"
+
+- name: Start all virtual machines
+  virt: name={{item.name}} state=running
+  with_items: "{{boxes}}"
+

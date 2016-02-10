@@ -1,0 +1,54 @@
+<domain type='kvm'>
+  <name>{{item.name}}</name>
+  <memory unit='GiB'>{{item.memory}}</memory>
+  <vcpu>{{item.cpus}}</vcpu>
+
+  <os>
+    <type arch='x86_64' machine='pc'>hvm</type>
+    <boot dev='hd'/>
+  </os>
+
+  <features>
+    <acpi/>
+    <apic/>
+    <pae/>
+    <vmport state='off'/>
+  </features>
+
+  <clock offset='utc'/>
+
+  <on_poweroff>destroy</on_poweroff>
+  <on_reboot>restart</on_reboot>
+  <on_crash>restart</on_crash>
+
+  <devices>
+    <!-- Storage for your BIG DATA -->
+    <!-- TODO add ZFS volume stuff -->
+
+    <!-- Networking. There can be multiple devices -->
+    {% for switch in item.switches %}
+    <interface type='bridge'>
+      <source bridge='{{switch}}'/>
+      <model type='virtio'/>
+      <virtualport type='openvswitch'/>
+    </interface>
+    {% endfor %}
+
+    <!-- Serial stuff -->
+    <serial type='pty'>
+      <target port='0'/>
+    </serial>
+
+    <console type='pty'>
+      <target type='serial' port='0'/>
+    </console>
+
+    <!-- HID -->
+    <input type='mouse' bus='ps2'/>
+    <input type='keyboard' bus='ps2'/>
+
+    <!-- Remote management using SPICE -->
+    <graphics type='spice' autoport='yes'/>
+
+  </devices>
+</domain>
