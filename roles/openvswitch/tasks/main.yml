@@ -1,21 +1,17 @@
 - name: Install ovs
   package: name={{item}} state=present
-  when: ansible_os_family == "Debian"
   with_items:
     - openvswitch-common
     - openvswitch-switch
 
 - name: Setup ovs management services
   service: name=openvswitch-switch enabled=yes state=started
-  when: ansible_os_family == "Debian"
 
 - name: Install ovs
   package: name=openvswitch state=present
-  when: ansible_os_family == "Archlinux"
 
 - name: Setup ovs management services
   service: name={{item}} enabled=yes state=started
-  when: ansible_os_family == "Archlinux"
   with_items:
     - ovs-vswitchd
     - ovsdb-server
