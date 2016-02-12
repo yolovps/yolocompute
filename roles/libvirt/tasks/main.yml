@@ -1,6 +1,5 @@
 - name: Install libvirt
   package: name={{item}} state=present
-  when: ansible_os_family == "Debian"
   with_items:
     - qemu-kvm
     - libvirt-bin
@@ -8,32 +7,10 @@
 
 - name: Setup libvirt management services
   service: name={{item}} enabled=yes state=started
-  when: ansible_os_family == "Debian"
   with_items:
     - libvirtd
     - libvirt-guests
 
 - name: Add management user to the libvirt group
   user: name={{libvirt_mgmt_user}} groups=libvirtd append=yes
-  when: ansible_os_family == "Debian"
-
-- name: Install libvirt
-  package: name={{item}} state=present
-  when: ansible_os_family == "Archlinux"
-  with_items:
-    - qemu
-    - libvirt
-    - libvirt-python
-
-- name: Setup libvirt management services
-  service: name={{item}} enabled=yes state=started
-  when: ansible_os_family == "Archlinux"
-  with_items:
-    - libvirtd
-    - virtlogd
-    - libvirt-guests
-
-- name: Add management user to the libvirt group
-  user: name={{libvirt_mgmt_user}} groups=libvirt append=yes
-  when: ansible_os_family == "Archlinux"
 
