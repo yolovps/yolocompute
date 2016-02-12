@@ -14,7 +14,7 @@
     - libvirt-guests
 
 - name: Add management user to the libvirt group
-  user: name={{libvirt_mgmt_user}} groups=libvirtd
+  user: name={{libvirt_mgmt_user}} groups=libvirtd append=yes
   when: ansible_os_family == "Debian"
 
 - name: Install libvirt
@@ -34,6 +34,6 @@
     - libvirt-guests
 
 - name: Add management user to the libvirt group
-  user: name={{libvirt_mgmt_user}} groups=libvirt
+  user: name={{libvirt_mgmt_user}} groups=libvirt append=yes
   when: ansible_os_family == "Archlinux"
 
