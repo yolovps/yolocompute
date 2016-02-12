@@ -8,14 +8,17 @@
 - name: Install git
   package: name=git state=present
 
-- name: Install ntpd
-  package: name=ntp state=present
+- name: Install Chrony
+  apt: pkg=chrony state=installed
 
-- name: Ensure the ntpd is started
-  service: name=ntp state=started enabled=true
-  when: ansible_os_family == "Debian"
+- name: Enable chronyd
+  service:
+    name: chronyd
+    state: started
+    enabled: yes
 
-- name: Ensure the ntpd is started
-  service: name=ntpd state=started enabled=true
-  when: ansible_os_family == "Archlinux"
+- name: Set TimeZone in /etc/localtime
+  command: /usr/bin/timedatectl set-timezone Europe/Berlin
 
+- name: Set ntp enabled
+  command: /usr/bin/timedatectl set-ntp true
