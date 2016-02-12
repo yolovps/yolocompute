@@ -15,4 +15,15 @@ boxes:
     cpus: 4
     switches:
       - br-public
+  - name: sicherheit.reichsinter.net
+    memory: 2
+    cpus: 4 
+    switches:
+      - br-public
+  - name: irc.reichsinter.net
+    memory: 1
+    cpus: 1
+    switches: 
+      - br-public
+   
 
