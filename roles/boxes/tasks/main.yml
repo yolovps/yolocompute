@@ -6,3 +6,13 @@
   virt: name={{item.name}} state=running
   with_items: "{{boxes}}"
 
+- name: Ensure /etc/dhcpd exists
+  file: name=/etc/dhcpd state=directory
+
+- name: Create dhcp config
+  template: src=static-leases.conf dest=/etc/dhcpd/static-leases.conf
+
+# TODO add `include "/etc/dhcpd/static-leases.conf";` to /etc/dhcpd.conf
+# TODO reload dhcpd
+# TODO find out where the dhcpd runs
+

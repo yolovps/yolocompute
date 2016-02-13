@@ -18,5 +18,5 @@
 
 - name: Setup ovs switches
   openvswitch_bridge: bridge={{item}}
-  with_items: ovs_switches
+  with_items: ovs_interfaces
 

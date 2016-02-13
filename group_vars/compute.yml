@@ -1,5 +1,5 @@
 # Virtual switches that should be created
-ovs_switches:
+ovs_interfaces:
   - br-public
 
 # This user is added to the libvirt(d) group
@@ -8,22 +8,30 @@ libvirt_mgmt_user: leonard
 # Virtual machines that should exist
 # @param[memory] Memory to assign. Unit: GiB
 # @param[cpus] Amount of CPU cores to assign. Max: Number of host CPUs
-# @param[switches] List of switches created via `ovs_switches`
+# @param[interfaces] List of networking interfaces:
+#   @param[switch] Switch created via ovs_interfaces to attach to
+#   @param[mac] Mac address for this interface. Use a generator
+#   @param[address] Legacy IP address the DHCP propagates to your MAC
 boxes:
   - name: cexy.techel.net
     memory: 2
     cpus: 4
-    switches:
-      - br-public
+    interfaces:
+      - switch: br-public
+        mac: 81:52:A3:0A:7F:E0
+        address: 10.0.42.2
   - name: sicherheit.reichsinter.net
     memory: 2
-    cpus: 4 
-    switches:
-      - br-public
+    cpus: 4
+    interfaces:
+      - switch: br-public
+        mac: F5:ED:2D:9D:B9:13
+        address: 10.0.42.3
   - name: irc.reichsinter.net
     memory: 1
     cpus: 1
-    switches: 
-      - br-public
-   
+    interfaces:
+      - switch: br-public
+        mac: 64:7F:22:49:1F:DC
+        address: 10.0.42.4
 
