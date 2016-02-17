@@ -9,7 +9,6 @@ lvms:
   - device: /dev/md0
     vg_name: boxes
 
-# Virtual switches that should be created
 ovs_interfaces:
   - name: br-public
     ip: 91.195.220.65/28
@@ -20,7 +19,6 @@ dhcp:
     gateway: 91.195.220.65
     nameservers: 8.8.8.8
 
-# This user is added to the libvirt(d) group
 libvirt:
 #  mgmt_users:
 #    - leonard
