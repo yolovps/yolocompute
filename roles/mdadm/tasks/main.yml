@@ -1,0 +1,20 @@
+- name: Install mdadm
+  package: name=mdadm state=present
+
+- name: Check existing RAID
+  command: /sbin/mdadm --detail {{item.device}}
+  register: mdadm_exists
+  with_items: raids
+
+- name: Setup mdadm RAIDs
+  command: /sbin/mdadm --create {{item.device}} --level={{item.level}} --raid-devices={{item.components | length}} {{item.components  | join(" ")}} --run
+  with_items: raids
+  when: mdadm_exists|failed
+
+- name: Save mdadm config
+  shell: /bin/grep -q "ARRAY {{item.device}}" /etc/mdadm/mdadm.conf || /sbin/mdadm --detail {{item.device}} --scan >> /etc/mdadm/mdadm.conf
+  with_items: raids
+
+- name: Enable and start the mdadm monitor daemon
+  service: name=mdmonitor enabled=yes state=started
+
