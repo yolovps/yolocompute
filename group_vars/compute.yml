@@ -1,6 +1,7 @@
 # Virtual switches that should be created
 ovs_interfaces:
-  - br-public
+  - name: br-public
+    ip: 91.195.220.65/26
 
 # This user is added to the libvirt(d) group
 libvirt_mgmt_user: leonard

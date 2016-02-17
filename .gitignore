@@ -1,1 +1,4 @@
 *.sw*
+
+# ansible-galaxy roles
+roles/yaegashi.blockinfile/

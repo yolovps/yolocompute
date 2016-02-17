@@ -8,6 +8,13 @@
   service: name=openvswitch-switch enabled=yes state=started
 
 - name: Setup ovs switches
-  openvswitch_bridge: bridge={{item}}
+  openvswitch_bridge: bridge={{item.name}}
   with_items: ovs_interfaces
+
+- name: Setup IP addresses
+  blockinfile: dest=/etc/network/interfaces block={{lookup('template', 'interfaces')}}
+  when: item.ip != ""
+  with_items: ovs_interfaces
+  notify:
+    - restart networking
 
