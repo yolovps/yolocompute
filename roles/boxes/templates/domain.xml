@@ -12,7 +12,6 @@
     <acpi/>
     <apic/>
     <pae/>
-    <vmport state='off'/>
   </features>
 
   <clock offset='utc'/>
@@ -23,12 +22,17 @@
 
   <devices>
     <!-- Storage for your BIG DATA -->
-    <!-- TODO add ZFS volume stuff -->
+    {% for disk in item.storage %}
+    <disk type='volume'>
+      <source pool='{{disk.pool}}' volume='{{item.name}}-{{disk.dev}}'/>
+      <target dev='{{disk.dev}}' bus='virtio'/>
+    </disk>
+    {% endfor %}
 
     <!-- Networking. There can be multiple devices -->
-    {% for switch in item.switches %}
+    {% for if in item.interfaces %}
     <interface type='bridge'>
-      <source bridge='{{switch}}'/>
+      <source bridge='{{if.switch}}'/>
       <model type='virtio'/>
       <virtualport type='openvswitch'/>
     </interface>

@@ -30,32 +30,23 @@ libvirt:
       vg_phy: /dev/md0
 
 # Virtual machines that should exist
-# @param[memory] Memory to assign. Unit: GiB
-# @param[cpus] Amount of CPU cores to assign. Max: Number of host CPUs
-# @param[interfaces] List of networking interfaces:
-#   @param[switch] Switch created via ovs_interfaces to attach to
-#   @param[mac] Mac address for this interface. Use a generator
-#   @param[address] Legacy IP address the DHCP propagates to your MAC
+# - name should not be changed afterwards
+# - memory unit: Gigabytes
+# - network interfaces have to be assigned to an ovs_interface switch.
+#   Also make sure that the mac address is uniqe and that the ipv4 address has
+#   a corresponding dhcp subnet.
+# - storage devices have to have a dev-name, e.g. "vda". Make sure not to change
+#   this as the storage's identifier is composed of it
 boxes:
-  - name: cexy.techel.net
+  - name: noot.techel.net
     memory: 2
     cpus: 4
     interfaces:
       - switch: br-public
         mac: 81:52:A3:0A:7F:E0
-        address: 10.0.42.2
-  - name: sicherheit.reichsinter.net
-    memory: 2
-    cpus: 4
-    interfaces:
-      - switch: br-public
-        mac: F5:ED:2D:9D:B9:13
-        address: 10.0.42.3
-  - name: irc.reichsinter.net
-    memory: 1
-    cpus: 1
-    interfaces:
-      - switch: br-public
-        mac: 64:7F:22:49:1F:DC
-        address: 10.0.42.4
+        address: 91.195.220.67
+    storage:
+      - pool: boxes
+        size: 30G
+        dev: vda
 
