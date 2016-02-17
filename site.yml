@@ -5,6 +5,7 @@
   roles:
     - common
     - mdadm
+    - lvm
     - bird
     - openvswitch
     - libvirt

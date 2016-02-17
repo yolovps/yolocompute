@@ -5,6 +5,10 @@ raids:
       - /dev/sdb
       - /dev/sdc
 
+lvms:
+  - device: /dev/md0
+    vg_name: boxes
+
 # Virtual switches that should be created
 ovs_interfaces:
   - name: br-public
