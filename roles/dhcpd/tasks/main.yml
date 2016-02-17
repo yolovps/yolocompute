@@ -1,0 +1,15 @@
+- name: Install dhcpd
+  package: name=isc-dhcp-server state=installed
+
+- name: Enable dhcpd service
+  service: name=isc-dhcp-server enabled=yes
+
+- name: Ensure dhcpd.d/ exists
+  file: name=/etc/dhcp/dhcpd.d/ state=directory
+
+- name: Configure dhcpd
+  template: src=dhcpd.conf dest=/etc/dhcp/dhcpd.conf
+  with_items: dhcp
+  notify:
+    - restart dhcpd
+

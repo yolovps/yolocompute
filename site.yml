@@ -8,6 +8,7 @@
     - lvm
     - bird
     - openvswitch
+    - dhcpd
     - libvirt
     - boxes
 

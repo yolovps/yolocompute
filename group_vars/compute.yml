@@ -12,7 +12,13 @@ lvms:
 # Virtual switches that should be created
 ovs_interfaces:
   - name: br-public
-    ip: 91.195.220.65/26
+    ip: 91.195.220.65/28
+
+dhcp:
+  - subnet: 91.195.220.64
+    netmask: 255.255.255.240
+    gateway: 91.195.220.65
+    nameservers: 8.8.8.8
 
 # This user is added to the libvirt(d) group
 libvirt:
