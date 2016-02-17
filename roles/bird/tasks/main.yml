@@ -1,0 +1,10 @@
+- name: Install bird
+  package: name=bird state=installed
+
+- name: Enable bird4
+  service: name=bird enabled=yes
+
+- name: Configure bird4
+  copy: src=bird.conf dest=/etc/bird/bird.conf
+  notify: restart bird
+

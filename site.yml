@@ -4,6 +4,7 @@
 
   roles:
     - common
+    - bird
     - openvswitch
     - libvirt
     - boxes
