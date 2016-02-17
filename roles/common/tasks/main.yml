@@ -8,14 +8,11 @@
 - name: Install git
   package: name=git state=present
 
-- name: Install Chrony
-  apt: pkg=chrony state=installed
+- name: Install chrony
+  package: name=chrony state=present
 
-- name: Enable chronyd
-  service:
-    name: chronyd
-    state: started
-    enabled: yes
+- name: Enable and start chrony
+  service: name=chrony enabled=yes state=started
 
 - name: Set TimeZone in /etc/localtime
   command: /usr/bin/timedatectl set-timezone Europe/Berlin

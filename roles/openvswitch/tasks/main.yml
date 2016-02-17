@@ -7,15 +7,6 @@
 - name: Setup ovs management services
   service: name=openvswitch-switch enabled=yes state=started
 
-- name: Install ovs
-  package: name=openvswitch state=present
-
-- name: Setup ovs management services
-  service: name={{item}} enabled=yes state=started
-  with_items:
-    - ovs-vswitchd
-    - ovsdb-server
-
 - name: Setup ovs switches
   openvswitch_bridge: bridge={{item}}
   with_items: ovs_interfaces
