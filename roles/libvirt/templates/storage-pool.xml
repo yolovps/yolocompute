@@ -1,0 +1,6 @@
+<pool type="logical">
+  <name>{{item.vg_name}}</name>
+  <source>
+    <device path="{{item.vg_phy}}" />
+  </source>
+</pool>

@@ -4,6 +4,7 @@
     - qemu-kvm
     - libvirt-bin
     - python-libvirt
+    - python-lxml
 
 - name: Setup libvirt management services
   service: name={{item}} enabled=yes state=started
@@ -11,6 +12,20 @@
     - libvirtd
     - libvirt-guests
 
-- name: Add management user to the libvirt group
-  user: name={{libvirt_mgmt_user}} groups=libvirtd append=yes
+#- name: Add management users to the libvirt group
+#  user: name={{libvirt.mgmt_user}} groups=libvirtd append=yes
+#  with_items: libvirt.mgmt_users
+
+- name: Define LVM storage pools
+  virt_pool: command=define name={{item.name}} xml="{{lookup('template', 'storage-pool.xml')}}"
+  with_items: libvirt.storage_pools
+  when: item.vg_name != "" and item.vg_phy != ""
+
+- name: Create, enable and start storage pools
+  virt_pool: command=create name={{item.name}} state=active
+  with_items: libvirt.storage_pools
+
+- name: Ensure storage pools autostart
+  virt_pool: autostart=yes name={{item.name}}
+  with_items: libvirt.storage_pools
 

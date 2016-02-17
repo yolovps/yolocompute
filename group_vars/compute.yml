@@ -15,7 +15,13 @@ ovs_interfaces:
     ip: 91.195.220.65/26
 
 # This user is added to the libvirt(d) group
-libvirt_mgmt_user: leonard
+libvirt:
+#  mgmt_users:
+#    - leonard
+  storage_pools:
+    - name: boxes
+      vg_name: boxes
+      vg_phy: /dev/md0
 
 # Virtual machines that should exist
 # @param[memory] Memory to assign. Unit: GiB
