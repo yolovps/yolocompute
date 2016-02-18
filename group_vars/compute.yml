@@ -42,8 +42,20 @@ boxes:
     install: http://releng.archlinux.org/pxeboot/ipxe.pxe
     interfaces:
       - switch: br-public
-        mac: 81:52:A3:0A:7F:E0
+        mac: 00:16:3E:2F:21:B3
         address: 91.195.220.67
+    storage:
+      - pool: boxes
+        size: 30G
+        dev: vda
+  - name: guenter.luftamt-hersbruck.de
+    memory: 1
+    cpus: 1
+    install: http://releng.archlinux.org/pxeboot/ipxe.pxe
+    interfaces:
+      - switch: br-public
+        mac: 7E:F5:62:02:40:29
+        address: 91.195.220.68
     storage:
       - pool: boxes
         size: 30G
