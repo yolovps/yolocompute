@@ -13,12 +13,12 @@
   virt: name={{item.name}} state=running
   with_items: "{{boxes}}"
 
+- name: Add static leases to dhcp config
+  lineinfile: dest=/etc/dhcp/dhcpd.conf regexp='^include "/etc/dhcp/dhcpd.d/static-leases.conf";' line='include "/etc/dhcp/dhcpd.d/static-leases.conf";'
+
 - name: Configure static leases
   template: src=static-leases.conf dest=/etc/dhcp/dhcpd.d/static-leases.conf
   with_items: boxes
-
-- name: Add static leases to dhcp config
-  lineinfile: dest=/etc/dhcp/dhcpd.conf regexp='^include "/etc/dhcp/dhcpd.d/static-leases.conf";' line='include "/etc/dhcp/dhcpd.d/static-leases.conf";'
   notify:
     - restart dhcpd
 
