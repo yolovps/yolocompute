@@ -1,0 +1,24 @@
+- name: Create volume groups
+  command: /usr/bin/virsh vol-create-as {{item.1.pool}} "{{item.0.name}}-{{item.1.dev}}" {{item.1.size}} creates=/dev/{{item.1.pool}}/{{item.0.name}}-{{item.1.dev}}
+  with_subelements:
+    - boxes
+    - storage
+
+- name: Define all virtual machines
+  virt: name={{item.name}} xml="{{ lookup('template', 'domain.xml') }}" command=define
+  tags: debug
+  with_items: "{{boxes}}"
+
+- name: Start all virtual machines
+  virt: name={{item.name}} state=running
+  with_items: "{{boxes}}"
+
+- name: Configure static leases
+  template: src=static-leases.conf dest=/etc/dhcp/dhcpd.d/static-leases.conf
+  with_items: boxes
+
+- name: Add static leases to dhcp config
+  lineinfile: dest=/etc/dhcp/dhcpd.conf regexp='^include "/etc/dhcp/dhcpd.d/static-leases.conf";' line='include "/etc/dhcp/dhcpd.d/static-leases.conf";'
+  notify:
+    - restart dhcpd
+

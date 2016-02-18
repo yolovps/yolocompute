@@ -6,6 +6,7 @@
   <os>
     <type arch='x86_64' machine='pc'>hvm</type>
     <boot dev='hd'/>
+    <boot dev='network'/>
   </os>
 
   <features>
@@ -32,6 +33,7 @@
     <!-- Networking. There can be multiple devices -->
     {% for if in item.interfaces %}
     <interface type='bridge'>
+      <mac address='{{if.mac}}'/>
       <source bridge='{{if.switch}}'/>
       <model type='virtio'/>
       <virtualport type='openvswitch'/>
