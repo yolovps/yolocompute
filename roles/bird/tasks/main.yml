@@ -1,3 +1,12 @@
+- name: Add syseleven ubuntu nightly bird builds
+  copy: src=bird-syseleven.list dest=/etc/apt/sources.list.d/bird-syseleven.list
+
+- name: Import syseleven key
+  apt_key: keyserver=keyserver.ubuntu.com id=C70320183C05E1E9F24532C87736223724911626
+
+- name: Update apt
+  apt: update_cache=yes
+
 - name: Install bird
   package: name=bird state=installed
 

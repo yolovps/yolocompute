@@ -1,0 +1,3 @@
+deb http://ppa.launchpad.net/syseleven-platform/bird/ubuntu trusty main 
+deb-src http://ppa.launchpad.net/syseleven-platform/bird/ubuntu trusty main 
+
