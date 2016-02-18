@@ -9,7 +9,6 @@
 
 - name: Configure dhcpd
   template: src=dhcpd.conf dest=/etc/dhcp/dhcpd.conf
-  with_items: dhcp
   notify:
     - restart dhcpd
 
