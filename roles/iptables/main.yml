@@ -1,0 +1,4 @@
+---
+- name: iptables allow traffic from and to br-public
+  iptables: chain=FORWARD  in_interface=br-public jump=ACCEPT
+  iptables: chain=FORWARD out_interface=br-public jump=ACCEPT
