@@ -11,6 +11,7 @@ lvms:
 
 ovs_interfaces:
   - name: br-public
+    forward: true
     ip: 91.195.220.65/28
 
 dhcp:
