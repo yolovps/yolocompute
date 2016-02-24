@@ -61,4 +61,14 @@ boxes:
       - pool: boxes
         size: 30G
         dev: vda
-
+  - name: tbd.feuerrot.org
+    memory: 2
+    cpus: 2
+    interfaces:
+      - switch: br-public
+        mac: 00:1D:63:00:23:42
+        address: 91.195.220.70
+    storage:
+      - pool: boxes
+        size: 60G
+        dev: vda
