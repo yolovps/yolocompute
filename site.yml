@@ -4,8 +4,8 @@
 
   roles:
     - common
-    - mdadm
-    - lvm
+#    - mdadm
+#    - lvm
     - bird
     - openvswitch
     - dhcpd

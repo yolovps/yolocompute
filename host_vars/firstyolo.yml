@@ -1,13 +1,13 @@
-raids:
-  - device: /dev/md0
-    level: 1
-    components:
-      - /dev/sdb
-      - /dev/sdc
+#raids:
+#  - device: /dev/md0
+#    level: 1
+#    components:
+#      - /dev/sdb
+#      - /dev/sdc
 
-lvms:
-  - device: /dev/md0
-    vg_name: boxes
+#lvms:
+#  - device: /dev/md0
+#    vg_name: boxes
 
 ovs_interfaces:
   - name: br-public
@@ -24,8 +24,8 @@ libvirt:
 #  mgmt_users:
 #    - leonard
   storage_pools:
-    - name: boxes
-      vg_name: boxes
+    - name: vg_ssd
+      vg_name: vg_ssd
       vg_phy: /dev/md0
 
 # Virtual machines that should exist
@@ -40,35 +40,97 @@ boxes:
   - name: noot.techel.net
     memory: 2
     cpus: 4
-    install: http://releng.archlinux.org/pxeboot/ipxe.pxe
+    install: /ubuntu-14.04/pxelinux.0
     interfaces:
       - switch: br-public
-        mac: 00:16:3E:2F:21:B3
+        mac: 00:16:3E:ED:D1:1A
         address: 91.195.220.67
     storage:
-      - pool: boxes
-        size: 30G
+      - pool: vg_ssd
+        size: 50G
+        dev: vda
+  - name: sicherheit.reichsinter.net
+    memory: 2
+    cpus: 4
+    install: /archlinux/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:68:94:3C
+        address: 91.195.220.68
+    storage:
+      - pool: vg_ssd
+        size: 10G
+        dev: vda
+  - name: irc.reichsinter.net
+    memory: 1
+    cpus: 1
+    install: /archlinux/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:5A:5C:82
+        address: 91.195.220.69
+    storage:
+      - pool: vg_ssd
+        size: 5G
+        dev: vda
+  - name: tbd.feuerrot.org
+    memory: 4
+    cpus: 4
+    install: /debian-jessie/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:9F:F4:58
+        address: 91.195.220.70
+    storage:
+      - pool: vg_ssd
+        size: 120G
         dev: vda
   - name: guenter.luftamt-hersbruck.de
     memory: 1
     cpus: 1
-    install: http://releng.archlinux.org/pxeboot/ipxe.pxe
+    install: /archlinux/pxelinux.0
     interfaces:
       - switch: br-public
-        mac: 7E:F5:62:02:40:29
-        address: 91.195.220.68
+        mac: 00:16:3E:1C:56:44
+        address: 91.195.220.71
     storage:
-      - pool: boxes
+      - pool: vg_ssd
         size: 30G
         dev: vda
-  - name: tbd.feuerrot.org
-    memory: 2
-    cpus: 2
+  - name: hermes.luftamt-hersbruck.de
+    memory: 1
+    cpus: 1
+    install: /archlinux/pxelinux.0
     interfaces:
       - switch: br-public
-        mac: 00:1D:63:00:23:42
-        address: 91.195.220.70
+        mac: 00:16:3E:64:1B:98
+        address: 91.195.220.72
     storage:
-      - pool: boxes
+      - pool: vg_ssd
+        size: 20G
+        dev: vda
+  - name: bg1.luftamt-hersbruck.de
+    memory: 1
+    cpus: 1
+    install: /archlinux/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:66:86:F1
+        address: 91.195.220.73
+    storage:
+      - pool: vg_ssd
         size: 60G
         dev: vda
+  - name: sternen.space
+    memory: 4
+    cpus: 1
+    install: /archlinux/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:7E:FF:97
+        address: 91.195.220.74
+    storage:
+      - pool: vg_ssd
+        size: 80G
+        dev: vda
+
