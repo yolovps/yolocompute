@@ -1,0 +1,52 @@
+- name: Install tftpd-hpa
+  package: name=tftpd-hpa state=installed
+
+# Archlinux
+- name: Create Archlinux folder
+  file: path=/srv/tftp/archlinux state=directory
+
+- name: Download Archlinux netboot
+  get_url: url=https://releng.archlinux.org/pxeboot/ipxe.pxe dest=/srv/tftp/archlinux/pxelinux.0
+
+# Ubuntu 14.04 LTS
+- name: Determine if Ubuntu 14.04 exists
+  stat: path=/srv/tftp/ubuntu-14.04/pxelinux.0
+  register: ubuntu_14_04
+
+- name: Create Ubuntu 14.04 folder
+  file: path=/srv/tftp/ubuntu-14.04 state=directory
+  when: ubuntu_14_04.stat.islnk is not defined
+
+- name: Download Ubuntu 14.04
+  get_url: url=http://de.archive.ubuntu.com/ubuntu/dists/trusty/main/installer-amd64/current/images/netboot/netboot.tar.gz dest=/tmp/ubuntu-14-04.tar.gz
+  when: ubuntu_14_04.stat.islnk is not defined
+
+- name: Unpack Ubuntu 14.04
+  unarchive: src=/tmp/ubuntu-14-04.tar.gz dest=/srv/tftp/ubuntu-14.04 copy=no #creates=/srv/tftp/ubuntu-14.04/pxelinux.0
+  when: ubuntu_14_04.stat.islnk is not defined
+
+- name: Remove Ubuntu 14.04 archive
+  file: path=/tmp/ubuntu-14-04.tar.gz state=absent
+  when: ubuntu_14_04.stat.islnk is not defined
+
+# Debian Jessie
+- name: Determine if Debian Jessie exists
+  stat: path=/srv/tftp/debian-jessie/pxelinux.0
+  register: debian_jessie
+
+- name: Create Debian Jessie folder
+  file: path=/srv/tftp/debian-jessie state=directory
+  when: debian_jessie.stat.islnk is not defined
+
+- name: Download Debian Jessie
+  get_url: url=http://ftp.nl.debian.org/debian/dists/jessie/main/installer-amd64/current/images/netboot/netboot.tar.gz dest=/tmp/debian-jessie.tar.gz
+  when: debian_jessie.stat.islnk is not defined
+
+- name: Unpack Debian Jessie
+  unarchive: src=/tmp/debian-jessie.tar.gz dest=/srv/tftp/debian-jessie copy=no
+  when: debian_jessie.stat.islnk is not defined
+
+- name: Remove Debian Jessie archive
+  file: path=/tmp/debian-jessie.tar.gz
+  when: debian_jessie.stat.islnk is not defined
+

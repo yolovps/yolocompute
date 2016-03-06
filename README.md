@@ -27,3 +27,8 @@ You can add arbitrary arguments to the `./deploy` script which all get passed to
 
 Basic requirement is a running Debian installation. Eventually you might want to run the mdadm/lvm stuff separated.
 
+## Currently included pxe images
+* /archlinux/pxelinux.0
+* /ubuntu-14.04/pxelinux.0
+* /debian-jessie/pxelinux.0
+
