@@ -133,4 +133,14 @@ boxes:
       - pool: vg_ssd
         size: 80G
         dev: vda
-
+  - name: bsd.reichsinter.net
+    memory: 4
+    cpus: 2
+    install: /openbsd/pxeboot
+      switch: br-public
+      mac: 00:16:3E:AF:AF:88
+      address: 91.195.220.75
+    storage:
+      - pool: vg_ssd
+        size: 50G
+        dev: vda
