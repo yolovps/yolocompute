@@ -137,9 +137,10 @@ boxes:
     memory: 4
     cpus: 2
     install: /openbsd/pxeboot
-      switch: br-public
-      mac: 00:1C:14:B5:BF:24 
-      address: 91.195.220.75
+    interfaces:
+      - switch: br-public
+        mac: 00:1C:14:B5:BF:24
+        address: 91.195.220.75
     storage:
       - pool: vg_ssd
         size: 50G

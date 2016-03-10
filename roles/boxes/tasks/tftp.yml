@@ -50,3 +50,31 @@
   file: path=/tmp/debian-jessie.tar.gz
   when: debian_jessie.stat.islnk is not defined
 
+ # openbsd snapshots
+- name: Determine if OpenBSD pxeboot exists
+  stat: path=/srv/tftp/openbsd/pxeboot
+  register: openbsd_pxe
+
+- name: Determine if OpenBSD kernel exists
+  stat: path=/srv/tftp/openbsd/bsd.rd
+  register: openbsd_kernel
+
+- name: create openbsd folder
+  file: path=/srv/tftp/openbsd state=directory
+  when: openbsd_pxe.stat.islnk is not defined
+
+- name: Create etc dir for OpenBSD install
+  file: path=/srv/tftp/etc state=directory
+  when: openbsd_kernel.stat.islnk is not defined
+
+- name: create OpenBSD boot config
+  lineinfile: "dest=/srv/tftp/etc/boot.conf create=yes state=present line='boot tftp:/openbsd/bsd.rd'"
+  when: openbsd_kernel.stat.islnk is not defined
+
+- name: Download OpenBSD pxeboot
+  get_url: url=http://ftp.spline.de/pub/OpenBSD/snapshots/amd64/pxeboot dest=/srv/tftp/openbsd/
+  when: openbsd_pxe.stat.islnk is not defined
+
+- name: Download OpenBSD kernel
+  get_url: url=http://ftp.spline.de/pub/OpenBSD/snapshots/amd64/bsd.rd dest=/srv/tftp/openbsd/
+  when: openbsd_kernel.stat.islnk is not defined
