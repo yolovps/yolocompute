@@ -49,18 +49,6 @@ boxes:
       - pool: vg_ssd
         size: 50G
         dev: vda
-  - name: sicherheit.reichsinter.net
-    memory: 2
-    cpus: 4
-    install: /archlinux/pxelinux.0
-    interfaces:
-      - switch: br-public
-        mac: 00:16:3E:68:94:3C
-        address: 91.195.220.68
-    storage:
-      - pool: vg_ssd
-        size: 10G
-        dev: vda
   - name: irc.reichsinter.net
     memory: 1
     cpus: 1
