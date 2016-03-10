@@ -59,7 +59,7 @@
   stat: path=/srv/tftp/openbsd/bsd.rd
   register: openbsd_kernel
 
-- name: create openbsd folder
+- name: Create OpenBSD folder
   file: path=/srv/tftp/openbsd state=directory
   when: openbsd_pxe.stat.islnk is not defined
 
@@ -67,7 +67,7 @@
   file: path=/srv/tftp/etc state=directory
   when: openbsd_kernel.stat.islnk is not defined
 
-- name: create OpenBSD boot config
+- name: Create OpenBSD boot config
   lineinfile: "dest=/srv/tftp/etc/boot.conf create=yes state=present line='boot tftp:/openbsd/bsd.rd'"
   when: openbsd_kernel.stat.islnk is not defined
 
