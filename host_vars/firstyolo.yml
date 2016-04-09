@@ -133,3 +133,15 @@ boxes:
       - pool: vg_ssd
         size: 50G
         dev: vda
+  - name: blinkenlichten.c3dprk.red
+    memory: 3
+    cpus: 3
+    install: /archlinux/pxelinux.0
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:A4:52:89
+        address: 91.195.220.76
+    storage:
+      - pool: vg_ssd
+        size: 80G
+        dev: vda
