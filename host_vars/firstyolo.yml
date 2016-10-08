@@ -133,3 +133,15 @@ boxes:
       - pool: vg_ssd
         size: 50G
         dev: vda
+  - name: minecraft.zichy.de
+    memory: 8
+    cpus: 2
+    install: /archlinux/pxelinux.0
+    interfaces:
+     - switch: br-public
+       mac: 00:1C:14:B5:BD:24
+       address: 91.195.220.76
+    storage:
+     - pool: vg_ssd
+       size: 50G
+       dev: vda
