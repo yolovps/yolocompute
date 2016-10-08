@@ -145,3 +145,15 @@ boxes:
      - pool: vg_ssd
        size: 50G
        dev: vda
+  - name: 600eur.the-space.agency
+    memory: 4
+    cpus: 2
+    install: /openbsd/pxeboot
+    interfaces:
+      - switch: br-public
+        mac: 00:16:3E:DA:B3:6C
+        address: 91.195.220.78
+    storage:
+      - pool: vg_ssd
+        size: 50G
+        dev: vda
