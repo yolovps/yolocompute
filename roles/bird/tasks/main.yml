@@ -1,8 +1,8 @@
-- name: Add syseleven ubuntu nightly bird builds
-  copy: src=bird-syseleven.list dest=/etc/apt/sources.list.d/bird-syseleven.list
+- name: Add cz-nic bird builds
+  copy: src=bird-cz-nic.list dest=/etc/apt/sources.list.d/bird-cz-nic.list
 
 - name: Import syseleven key
-  apt_key: keyserver=keyserver.ubuntu.com id=C70320183C05E1E9F24532C87736223724911626
+  apt_key: keyserver=keyserver.ubuntu.com id=F2331238F9C59A45
 
 - name: Update apt
   apt: update_cache=yes
@@ -17,5 +17,16 @@
   copy: src=bird.conf dest=/etc/bird/bird.conf
   notify: restart bird
 
-- name: Enable ip forwarding
+- name: Enable ipv4 forwarding
   sysctl: name="net.ipv4.ip_forward" value=1 sysctl_set=yes state=present reload=yes
+
+- name: Enable bird6
+  service: name=bird6 enabled=yes
+
+- name: Configure bird6
+  copy: src=bird6.conf dest=/etc/bird/bird6.conf
+  notify: restart bird6
+
+- name: Enable ipv6 forwarding
+  sysctl: name="net.ipv6.conf.all.forwarding" value=1 sysctl_set=yes state=present reload=yes
+

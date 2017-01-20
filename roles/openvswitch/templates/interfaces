@@ -1,4 +1,5 @@
 auto {{item.name}}
 iface {{item.name}} inet static
 	address {{item.ip}}
-
+iface {{item.name}} inet6 static
+	address {{item.ip6}}

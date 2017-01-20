@@ -1,7 +1,7 @@
 - name: Create volume groups
   command: /usr/bin/virsh vol-create-as {{item.1.pool}} "{{item.0.name}}-{{item.1.dev}}" {{item.1.size}} creates=/dev/{{item.1.pool}}/{{item.0.name}}-{{item.1.dev}}
   with_subelements:
-    - boxes
+    - "{{boxes}}"
     - storage
 
 - name: Define all virtual machines
@@ -18,7 +18,7 @@
 
 - name: Configure static leases
   template: src=static-leases.conf dest=/etc/dhcp/dhcpd.d/static-leases.conf
-  with_items: boxes
+  with_items: "{{boxes}}"
   notify:
     - restart dhcpd
 

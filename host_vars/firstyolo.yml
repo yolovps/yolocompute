@@ -13,6 +13,7 @@ ovs_interfaces:
   - name: br-public
     forward: true
     ip: 91.195.220.65/28
+    ip6: 2001:67c:220:12::/64
 
 dhcp:
   - subnet: 91.195.220.64

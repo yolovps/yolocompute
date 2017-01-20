@@ -9,22 +9,22 @@
 
 - name: Setup ovs switches
   openvswitch_bridge: bridge={{item.name}}
-  with_items: ovs_interfaces
+  with_items: "{{ovs_interfaces}}"
 
 - name: Setup IP addresses
   blockinfile: dest=/etc/network/interfaces block={{lookup('template', 'interfaces')}}
   when: item.ip != ""
-  with_items: ovs_interfaces
+  with_items: "{{ovs_interfaces}}"
   notify:
     - restart networking
 
 - name: allow outgoing traffic
   iptables: chain=FORWARD out_interface={{item.name}} jump=ACCEPT
   when: item.forward
-  with_items: ovs_interfaces
+  with_items: "{{ovs_interfaces}}"
 
 - name: allow incoming traffic
   iptables: chain=FORWARD  in_interface={{item.name}} jump=ACCEPT
   when: item.forward
-  with_items: ovs_interfaces
+  with_items: "{{ovs_interfaces}}"
 

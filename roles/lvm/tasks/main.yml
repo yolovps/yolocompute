@@ -3,7 +3,7 @@
 
 - name: Create volume groups
   lvg: vg={{item.vg_name}} pvs={{item.device}}
-  with_items: lvms
+  with_items: "{{lvms}}"
 
 - name: Enable and start lvm service
   service: name=lvm2 enabled=yes state=started
